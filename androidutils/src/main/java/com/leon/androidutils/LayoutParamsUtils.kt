@@ -7,6 +7,16 @@ import org.jetbrains.anko.dip
 class LayoutParamsUtils(val view: View) {
     var layoutParams: ViewGroup.LayoutParams = view.layoutParams
 
+    fun setWdith(width:Int):LayoutParamsUtils{
+        layoutParams.width = dp2px(width)
+        return this
+    }
+
+    fun setHeight(height:Int):LayoutParamsUtils{
+        layoutParams.height = dp2px(height)
+        return this
+    }
+
     fun setMargin(view:View,left:Float,top:Float,right:Float,bottom:Float): LayoutParamsUtils {
         layoutParams.let {
             if (it is ViewGroup.MarginLayoutParams){
@@ -44,10 +54,17 @@ class LayoutParamsUtils(val view: View) {
     }
 
     private fun dp2px(dp:Float):Int{
-        return AppUtils.application.dip(dp)
+        return view.dip(dp)
     }
 
     private fun dp2px(dp:Int):Int{
-        return AppUtils.application.dip(dp)
+        return view.dip(dp)
+    }
+
+    companion object {
+        @JvmStatic
+        fun from(view: View):LayoutParamsUtils{
+            return LayoutParamsUtils(view)
+        }
     }
 }
